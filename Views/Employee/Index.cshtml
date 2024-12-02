@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Employee>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Salaries</title>
+</head>
+<body>
+    <h1>Employee Salaries</h1>
+
+    <form method="post" asp-action="UpdateSalaries">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Full Name</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var employeesList = Model.ToList(); 
+                }
+                @for (var i = 0; i < employeesList.Count; i++)
+                {
+                    var employee = employeesList[i];
+                    <tr>
+                        <td>
+                            <input type="hidden" name="employees[@i].Id" value="@employee.Id" />
+                            @employee.Id
+                        </td>
+                        <td>@employee.FullName</td>
+                        <td>
+                            <input type="number" name="employees[@i].Salary" value="@employee.Salary" required />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>
